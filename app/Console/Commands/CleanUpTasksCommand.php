@@ -16,20 +16,19 @@ class CleanUpTasksCommand extends Command
 
     public function handle(): void
     {
-        if (!empty($this->option('date_lte'))){
+        if (!empty($this->option('date_lte'))) {
             try {
                 $date=Carbon::parse($this->option('date_lte'));
-            }catch (InvalidFormatException $e)
-            {
+            } catch (InvalidFormatException $e) {
                 $this->error('Invalid Format Date');
-               return;
+                return;
             }
-        }else{
+        } else {
             $date=Carbon::now('Europe/Minsk')->subDay(30);
         }
-        $count=Task::where('status',StatusTask::Backlog)
-            ->whereDate('created_at','<',$date)
-            ->orWhereDate('updated_at','<',$date)
+        $count=Task::where('status', StatusTask::Backlog)
+            ->whereDate('created_at', '<', $date)
+            ->orWhereDate('updated_at', '<', $date)
             ->delete();
         $this->info("Found and deleted $count records in ".Carbon::now('Europe/Minsk'));
     }

@@ -18,20 +18,20 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/user/{id}',[\App\Http\Controllers\UserController::class,'show']);
+Route::get('/user/{user}', [\App\Http\Controllers\UserController::class,'show']);
 
-Route::get('/user/{id}/projects',[\App\Http\Controllers\UserProjectsController::class,'show']);
+Route::get('/user/{id}/projects', [\App\Http\Controllers\UserProjectsController::class,'show']);
 
-Route::get('/projects/{id}',[\App\Http\Controllers\ProjectController::class,'show']);
+Route::get('/projects/{id}', [\App\Http\Controllers\ProjectController::class,'show']);
 
-Route::get('projects/{id}/simple-tasks-list',[\App\Http\Controllers\ProjectTasksController::class,'show']);
+Route::get('projects/{id}/simple-tasks-list', [\App\Http\Controllers\ProjectTasksController::class,'show']);
 
-Route::post('/projects',[\App\Http\Controllers\ProjectController::class,'store']);
+Route::post('/projects', [\App\Http\Controllers\ProjectController::class,'store']);
 
-Route::post('/projects/{id}/tasks',[\App\Http\Controllers\TaskController::class,'store']);
+Route::post('/projects/{project}/tasks', [\App\Http\Controllers\TaskController::class,'store']);
 
-Route::put('/projects/{id}',[\App\Http\Controllers\ProjectController::class,'update']);
+Route::put('/projects/{project}', [\App\Http\Controllers\ProjectController::class,'update']);
 
-Route::delete('/projects/{id}',[\App\Http\Controllers\ProjectController::class,'destroy']);
+Route::delete('/projects/{project}', [\App\Http\Controllers\ProjectController::class,'destroy']);
 
-Route::delete('/projects/{id}/tasks/{task_id}',[\App\Http\Controllers\ProjectTasksController::class,'destroy']);
+Route::delete('/projects/{project}/tasks/{task_id}', [\App\Http\Controllers\ProjectTasksController::class,'destroy']);

@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Helpers\FilterTaskUsers;
 use App\Http\Resources\TaskCollection;
-use App\Service\TaskService;
+use App\Models\Project;
+use App\Models\Task;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,8 +16,8 @@ class ProjectTasksController extends Controller
         return new TaskCollection($filterTaskUsers->get($id));
     }
 
-    public function destroy(int $id, int $task_id, TaskService $service): JsonResponse
+    public function destroy(Project $project, Task $task_id): JsonResponse
     {
-        return $service->destroy($id, $task_id);
+        return response()->json(['success'=>$task_id->delete()]);
     }
 }

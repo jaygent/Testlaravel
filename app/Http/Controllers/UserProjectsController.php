@@ -8,7 +8,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserProjectsController extends Controller
 {
-    public function show(int $id,ProjectSearch $projectSearch): JsonResource
+    public function show(int $id, ProjectSearch $projectSearch): JsonResource
     {
         return new ProjectCollection($projectSearch->get($id));
     }

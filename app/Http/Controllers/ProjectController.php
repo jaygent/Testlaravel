@@ -5,30 +5,30 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProjectsRequest;
 use App\Http\Resources\ProjectResource;
 use App\Models\Project;
-use App\Service\ProjectService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProjectController extends Controller
 {
-    public function show(int $id,ProjectService $service): JsonResource
+    public function show(Project $id): JsonResource
     {
-        return new ProjectResource($service->show($id));
+        return new ProjectResource($id);
     }
 
-    public function store(ProjectsRequest $request,ProjectService $service): JsonResource
+    public function store(ProjectsRequest $request): JsonResource
     {
-        return new ProjectResource($service->store($request->validated()));
+        return new ProjectResource(Project::create($request->validated()));
     }
 
-    public function update(ProjectsRequest $request, int $id, ProjectService $service): JsonResource
+    public function update(ProjectsRequest $request, Project $project): JsonResource
     {
-       return new ProjectResource($service->update($request->validated(),$id));
+        $project->update($request->validated());
+        return new ProjectResource($project->fresh());
     }
 
-    public function destroy(int $id, ProjectService $service): JsonResponse
+    public function destroy(Project $project): JsonResponse
     {
-        return $service->destroy($id);
+        return request()->json(['success' => $project->delete()]);
     }
 
 }

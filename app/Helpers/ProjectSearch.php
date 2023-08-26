@@ -19,8 +19,8 @@ class ProjectSearch
     public function get(int $id): Collection
     {
         $search=$this->request->query('search');
-        $project=User::findOrFail($id)->projects()->when($search,function (Builder $query, string $search) {
-            $query->where('name','LIKE',"%$search%");
+        $project=User::findOrFail($id)->projects()->when($search, function (Builder $query, string $search) {
+            $query->where('name', 'LIKE', "%$search%");
         });
         return $project->get();
     }

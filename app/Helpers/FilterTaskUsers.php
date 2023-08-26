@@ -19,8 +19,8 @@ class FilterTaskUsers
     public function get(int $id): Collection
     {
         $userId=$this->request->query('user_id');
-        $taskList=Project::findOrFail($id)->tasks()->when($userId,function (Builder $query, string $userid) {
-            $query->where('user_id',$userid);
+        $taskList=Project::findOrFail($id)->tasks()->when($userId, function (Builder $query, string $userid) {
+            $query->where('user_id', $userid);
         });
         return $taskList->get();
     }

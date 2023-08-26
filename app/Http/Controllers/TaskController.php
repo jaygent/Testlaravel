@@ -3,23 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTaskRequest;
-use App\Service\TaskService;
+use App\Http\Resources\TaskResource;
+use App\Models\Project;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TaskController extends Controller
 {
-    public function store(StoreTaskRequest $request,int $id,TaskService $taskService): JsonResource
+    public function store(StoreTaskRequest $request, Project $project): JsonResource
     {
-        return $taskService->store($id,$request);
-    }
-
-    public function update()
-    {
-
-    }
-
-    public function destroy()
-    {
-
+        $data = $request->validated();
+        $task=$project->tasks()->create($data);
+        return TaskResource::make($task);
     }
 }
